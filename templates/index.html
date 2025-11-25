@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görüntü İşleme Arama Motoru</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔎 Ürün Görüntüsü ile Stok Arama</h1>
+        <p style="text-align: center; margin-bottom: 30px;">Benzerini aramak istediğiniz ürünün görselini yükleyin ve stok durumunu kontrol edin.</p>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit">Benzer Ürünleri Kontrol Et</button>
+        </form>
+    </div>
+</body>
+</html>

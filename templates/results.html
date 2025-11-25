@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama Sonuçları</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <p><a href="{{ url_for('index') }}">← Yeni Bir Arama Yap</a></p>
+        <h1>Arama Sonuçları</h1>
+        
+        <div class="query-box">
+            <h3>Aranan Görüntü:</h3>
+            <img src="{{ url_for('static', filename='uploads/' + query_image) }}" alt="Aranan Ürün">
+            <p><em>{{ query_image }}</em></p>
+        </div>
+
+        {% if results %}
+            {% for product in results %}
+                <div class="result-item">
+                    <img src="{{ url_for('static', filename='product_images/' + product.file_name) }}" alt="{{ product.name }}">
+                    
+                    <div>
+                        <h2>{{ product.name }}</h2>
+                        <p><strong>Benzerlik Skoru:</strong> <span class="similarity">{{ product.similarity }}</span></p>
+                        <p><strong>Stok Miktarı:</strong> {{ product.stock_count }} adet</p>
+                        <p><strong>Kategori:</strong> {{ product.category }} | <strong>Fiyat:</strong> {{ product.price }} TL</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="message">
+                <p>Aradığınız ürüne benzer bir ürün bulunamadı veya eşik değerinin altında kaldı.</p>
+                <p>Daha farklı bir görsel deneyebilir veya stok verilerini kontrol edebilirsiniz.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
