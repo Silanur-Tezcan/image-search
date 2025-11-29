@@ -36,3 +36,24 @@ Müşteri, aradığı ürünü sadece bir görselle sorduğunda (örneğin e-tic
 | **Vektör Veritabanı & Arama Motoru** | FAISS (Facebook AI Similarity Search)     | Çıkarılan 1280 boyutlu özellik vektörleri üzerinde milyarlarca kat daha hızlı en yakın komşu araması (Approximate Nearest Neighbor) yaparak arama hızını maksimize eden kütüphane. |
 | **Veritabanı**                     | SQLite3                                   | Ürünlerin meta verilerini (Ad, Fiyat, Stok, Kategori, vb.) depolamak ve sorgulamak için kullanılan hafif ve sunucusuz veritabanı. |
 | **Arayüz (Frontend)**              | HTML / CSS / Bootstrap                    | Kurumsal kimliğe uygun, responsive (duyarlı) ve modern kontrol paneli arayüzü. |
+
+
+## Notlar ve Gelişim Planı
+
+Bu proje şu anda ağırlıklı olarak **görsel arama motorunun** geliştirilmesine odaklanmaktadır.  
+Backend yapısı (API uç noktaları, yönetim paneli işlemleri, gelişmiş ürün yönetimi vb.) ilerleyen aşamalarda genişletilecek ve projeye ek yeni modüller ile desteklenecektir.
+
+Mevcut öncelik:
+- **Görüntülerden özellik çıkarımı**
+- **Vektör arama motoru ile en yakın eşleşmelerin bulunması**
+- **Hızlı ve doğru görsel arama deneyiminin optimize edilmesi**
+
+Gelecekte eklenecek başlıca bölümler:
+- Gelişmiş Backend/API mimarisi  
+- Yetkilendirme & kimlik doğrulama  
+- Ürün yönetim paneli iyileştirmeleri  
+- Daha gelişmiş arayüz iyileştirmeleri  
+- Entegrasyon özellikleri (REST / Webhook / diğer sistemler)
+
+Proje aktif olarak geliştirilmektedir ve yeni bileşenler zamanla eklenmeye devam edecektir.
+
