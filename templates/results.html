@@ -3,39 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arama Sonuçları</title>
+    <title>Arama Sonuçları | Kurumsal Kontrol Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <p><a href="{{ url_for('index') }}">← Yeni Bir Arama Yap</a></p>
-        <h1>Arama Sonuçları</h1>
-        
-        <div class="query-box">
-            <h3>Aranan Görüntü:</h3>
-            <img src="{{ url_for('static', filename='uploads/' + query_image) }}" alt="Aranan Ürün">
-            <p><em>{{ query_image }}</em></p>
-        </div>
 
-        {% if results %}
-            {% for product in results %}
-                <div class="result-item">
-                    <img src="{{ url_for('static', filename='product_images/' + product.file_name) }}" alt="{{ product.name }}">
-                    
-                    <div>
-                        <h2>{{ product.name }}</h2>
-                        <p><strong>Benzerlik Skoru:</strong> <span class="similarity">{{ product.similarity }}</span></p>
-                        <p><strong>Stok Miktarı:</strong> {{ product.stock_count }} adet</p>
-                        <p><strong>Kategori:</strong> {{ product.category }} | <strong>Fiyat:</strong> {{ product.price }} TL</p>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <div class="message">
-                <p>Aradığınız ürüne benzer bir ürün bulunamadı veya eşik değerinin altında kaldı.</p>
-                <p>Daha farklı bir görsel deneyebilir veya stok verilerini kontrol edebilirsiniz.</p>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand me-4" href="#">
+                <i class="fas fa-warehouse me-2"></i> **[İşletme Adı]** Envanter
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="navbar-text text-white me-3 d-none d-md-inline small">
+                    Hoş Geldiniz, **Yönetici Adı**
+                </span>
+                <a href="#" class="btn btn-outline-light btn-sm rounded-pill">
+                    <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                </a>
             </div>
-        {% endif %}
+        </div>
+    </nav>
+
+    <div class="container-fluid ">
+        <div class="row">
+
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">
+                                <i class="fas fa-tachometer-alt me-2"></i> Kontrol Paneli
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bold sidebar-link-highlight" aria-current="page" href="#">
+                                <i class="fas fa-search-dollar me-2"></i> Ürün Görseli Arama
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cubes me-2"></i> Stok Durumu
+                            </a>
+                        </li>
+                        </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+                        <span>Ek Bilgiler</span>
+                    </h6>
+                    </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                
+                <h1 class="h2 page-header">Arama Sonuçları</h1>
+
+                <div class="results-wrapper">
+                    
+                    <p class="mb-4"><a href="{{ url_for('index') }}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i> Yeni Bir Arama Yap</a></p>
+
+                    <div class="query-box">
+                        <h3><i class="fas fa-camera me-2"></i> Aranan Görüntü:</h3>
+                        <img src="{{ url_for('static', filename='uploads/' + query_image) }}" alt="Aranan Ürün">
+                        <p class="text-muted small"><em>Dosya Adı: {{ query_image }}</em></p>
+                    </div>
+
+                    {% if results %}
+                        <h2 class="h4 text-primary mb-3">Bulunan Benzer Ürünler ({{ results | length }} Adet)</h2>
+                        
+                        {% for product in results %}
+                            <div class="result-item">
+                                <img src="{{ url_for('static', filename='product_images/' + product.file_name) }}" alt="{{ product.name }}">
+                                
+                                <div>
+                                    <h2>{{ product.name }}</h2>
+                                    <p class="mb-1"><strong>Stok Kodu:</strong> {{ product.sku if product.sku is defined else 'N/A' }}</p>
+                                    <p class="mb-1"><strong>Benzerlik Skoru:</strong> <span class="similarity">{{ product.similarity }}</span></p>
+                                    <p class="mb-1"><strong>Stok Miktarı:</strong> <span class="fw-bold">{{ product.stock_count }}</span> adet</p>
+                                    <p class="small text-muted">Kategori: {{ product.category }} | Fiyat: {{ product.price }} TL</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="message">
+                            <p class="fw-bold"><i class="fas fa-exclamation-circle me-2"></i> Benzer Ürün Bulunamadı!</p>
+                            <p>Aradığınız ürüne benzer bir ürün veritabanında bulunamadı veya eşik değerinin altında kaldı. Daha farklı bir görsel deneyebilir veya stok verilerini kontrol edebilirsiniz.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </main>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
