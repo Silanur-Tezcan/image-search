@@ -3,17 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Görüntü İşleme Arama Motoru</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Kontrol Paneli | [İşletme Adı] Envanter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🔎 Ürün Görüntüsü ile Stok Arama</h1>
-        <p style="text-align: center; margin-bottom: 30px;">Benzerini aramak istediğiniz ürünün görselini yükleyin ve stok durumunu kontrol edin.</p>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required>
-            <button type="submit">Benzer Ürünleri Kontrol Et</button>
-        </form>
+
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand me-4" href="#">
+                <i class="fas fa-warehouse me-2"></i> **[İşletme Adı]** Envanter
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="navbar-text text-white me-3 d-none d-md-inline small">
+                    Hoş Geldiniz, **Yönetici Adı**
+                </span>
+                <a href="#" class="btn btn-outline-light btn-sm rounded-pill">
+                    <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid ">
+        <div class="row">
+
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bold" aria-current="page" href="#">
+                                <i class="fas fa-tachometer-alt me-2"></i> Kontrol Paneli
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary sidebar-link-highlight" href="#aramaMotoru">
+                                <i class="fas fa-search-dollar me-2"></i> **Ürün Görseli Arama**
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cubes me-2"></i> Stok Durumu
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line me-2"></i> Satış Raporları
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-users-cog me-2"></i> Kullanıcı Yönetimi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cogs me-2"></i> Sistem Ayarları
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+                        <span>Ek Bilgiler</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-history me-2"></i> Son Girişler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-dollar-sign me-2"></i> Envanter Değeri
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                
+                <h1 class="h2 page-header">📊 Kontrol Paneli Genel Bakış</h1>
+
+                <div class="row mb-5">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card shadow-sm border-primary">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary"><i class="fas fa-boxes me-2"></i> Toplam Ürün Adedi</h5>
+                                <p class="card-text fs-3">4,125</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card shadow-sm border-success">
+                            <div class="card-body">
+                                <h5 class="card-title text-success"><i class="fas fa-shopping-cart me-2"></i> Bugünkü Satış</h5>
+                                <p class="card-text fs-3">87</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card shadow-sm border-danger">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger"><i class="fas fa-exclamation-triangle me-2"></i> Kritik Stok</h5>
+                                <p class="card-text fs-3">14</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card shadow-sm border-info">
+                            <div class="card-body">
+                                <h5 class="card-title text-info"><i class="fas fa-truck-loading me-2"></i> Yeni Gelen Ürün</h5>
+                                <p class="card-text fs-3">5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="aramaMotoru" class="h2 page-header mt-4">🔍 Ürün Görseli Arama Motoru</h2>
+                <div class="search-container shadow-lg">
+                    
+                    <div class="container py-4">
+                        <h1 class="display-6 text-primary fw-bold mb-4">Görüntü İşleme ile Stok Doğrulama</h1>
+                        <p class="text-center text-muted lead">Aradığınız ürünün görselini yükleyerek **veritabanındaki benzerlerini** hızla bulun.</p>
+                        
+                        <form method="POST" enctype="multipart/form-data" class="d-flex flex-column align-items-center gap-3 mt-4">
+                            <div class="input-group w-75">
+                                <span class="input-group-text"><i class="fas fa-cloud-upload-alt"></i></span>
+                                <input type="file" name="file" accept="image/*" required class="form-control form-control-lg" id="imageUpload">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-75 mt-2 rounded-pill shadow-sm">
+                                <i class="fas fa-check-circle me-2"></i> Benzer Ürünleri Kontrol Et
+                            </button>
+                        </form>
+                        
+                        <div class="mt-5 text-center p-3 border-top bg-light rounded">
+                            <p class="mb-0 small text-dark">Arama sonuçları, arka plan (backend) işlemleri tamamlandıktan sonra bu alanda görüntülenecektir.</p>
+                        </div>
+                        
+                    </div>
+                
+                </div>
+            </main>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
